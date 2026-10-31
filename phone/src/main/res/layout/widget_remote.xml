@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/widget_bg"
+    android:orientation="vertical"
+    android:padding="6dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <TextView android:id="@+id/b_netflix" style="@style/Key.App" android:text="Netflix" />
+        <TextView android:id="@+id/b_youtube" style="@style/Key.App" android:text="YouTube" />
+        <TextView android:id="@+id/b_prime" style="@style/Key.App" android:text="Prime" />
+        <TextView android:id="@+id/b_angel" style="@style/Key.App" android:text="Angel" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <TextView android:id="@+id/b_back" style="@style/Key" android:text="Back" />
+        <TextView android:id="@+id/b_home" style="@style/Key" android:text="Home" />
+        <TextView android:id="@+id/b_play" style="@style/Key" android:text="⏯" android:textSize="20sp" />
+        <TextView android:id="@+id/b_voldown" style="@style/Key" android:text="Vol −" />
+        <TextView android:id="@+id/b_volup" style="@style/Key" android:text="Vol +" />
+    </LinearLayout>
+</LinearLayout>
