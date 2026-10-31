@@ -38,9 +38,9 @@ try {
 
     # ---- Find the APK ----
     if (-not $Apk) {
-        $found = Get-ChildItem -Path $PSScriptRoot -Recurse -Filter "*tv*.apk" -ErrorAction SilentlyContinue | Select-Object -First 1
+        $found = Get-ChildItem -Path $PSScriptRoot -Recurse -Include "tv-debug.apk","SimpleTV-tv.apk" -ErrorAction SilentlyContinue | Select-Object -First 1
         if (-not $found) {
-            $found = Get-ChildItem -Path "$env:USERPROFILE\Downloads" -Recurse -Filter "*tv*.apk" -ErrorAction SilentlyContinue | Select-Object -First 1
+            $found = Get-ChildItem -Path "$env:USERPROFILE\Downloads" -Recurse -Include "tv-debug.apk","SimpleTV-tv.apk" -ErrorAction SilentlyContinue | Select-Object -First 1
         }
         if ($found) { $Apk = $found.FullName }
     }
