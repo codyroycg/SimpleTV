@@ -38,11 +38,19 @@ try {
 
     # ---- Find the APK ----
     if (-not $Apk) {
-        $found = Get-ChildItem -Path $PSScriptRoot -Recurse -Filter "tv-debug.apk" -ErrorAction SilentlyContinue | Select-Object -First 1
+        $found = Get-ChildItem -Path $PSScriptRoot -Recurse -Filter "*tv*.apk" -ErrorAction SilentlyContinue | Select-Object -First 1
         if (-not $found) {
-            $found = Get-ChildItem -Path "$env:USERPROFILE\Downloads" -Recurse -Filter "tv-debug.apk" -ErrorAction SilentlyContinue | Select-Object -First 1
+            $found = Get-ChildItem -Path "$env:USERPROFILE\Downloads" -Recurse -Filter "*tv*.apk" -ErrorAction SilentlyContinue | Select-Object -First 1
         }
         if ($found) { $Apk = $found.FullName }
+    }
+    if (-not $Apk) {
+        Write-Host "Downloading the latest Simple TV app from GitHub..."
+        $Apk = "$PSScriptRoot\SimpleTV-tv.apk"
+        try {
+            [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+            Invoke-WebRequest "https://github.com/codyroycg/SimpleTV/releases/latest/download/SimpleTV-tv.apk" -OutFile $Apk -UseBasicParsing
+        } catch { $Apk = $null }
     }
     if (-not $Apk -or -not (Test-Path $Apk)) {
         Fail "Couldn't find tv-debug.apk. Build it first (see README step 1), then put it in this folder or in Downloads and run this again."

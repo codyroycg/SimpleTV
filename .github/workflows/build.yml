@@ -4,6 +4,9 @@ on:
   push:
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -23,3 +26,15 @@ jobs:
           path: |
             tv/build/outputs/apk/debug/tv-debug.apk
             phone/build/outputs/apk/debug/phone-debug.apk
+      - name: Publish download links
+        if: github.ref == 'refs/heads/main'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          cp tv/build/outputs/apk/debug/tv-debug.apk SimpleTV-tv.apk
+          cp phone/build/outputs/apk/debug/phone-debug.apk SimpleTV-Remote.apk
+          gh release delete latest --yes --cleanup-tag || true
+          gh release create latest SimpleTV-tv.apk SimpleTV-Remote.apk \
+            --title "Simple TV (latest build)" \
+            --notes "SimpleTV-tv.apk goes on the Firestick (use setup-firestick.bat). SimpleTV-Remote.apk goes on your Android phone." \
+            --latest
